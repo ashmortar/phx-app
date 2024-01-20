@@ -8,6 +8,7 @@ defmodule PhnxhtmxWeb.Router do
     plug :put_root_layout, html: {PhnxhtmxWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug PhnxhtmxWeb.Plugs.Locale, "en"
   end
 
   pipeline :api do
@@ -18,6 +19,9 @@ defmodule PhnxhtmxWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/todo", TodoController, :index
+    get "/todo/:id", TodoController, :show
+    get "/introspect", TodoController, :introspect
   end
 
   # Other scopes may use custom stacks.
